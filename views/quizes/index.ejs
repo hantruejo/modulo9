@@ -1,0 +1,57 @@
+<% if (!busqueda) { %>
+	<h1>Todas las preguntas</h1>
+	<table>
+	<tr>
+	<th>Enlace a pregunta</th>
+		<th>Tematica</th>
+		<th>Editar</th>
+		<th>borrar</th>
+	</tr>
+		<% var i; for (i=0; i<quizes.length; i++) { %>
+			<tr>	
+				<td><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta%></a></td>
+				<td><%= quizes[i].tematica %></td>
+				<td><a href="quizes/<%= quizes[i].id %>/edit"> <button>Editar</button></a></td>
+				<td><form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+				<button type="submit" onClick="return confirm('borrar: <%=quizes[i].pregunta %>');">Borrar</button>
+				</form></td>
+				</tr>
+		<% } %>
+	</table>	
+<% } %>
+<br><br>
+	<h1>Buscar preguntas por texto</h1>
+		<form method="get" action="/quizes">
+			<input type="text" name = "search" value ="Pregunta aqui"/>
+			<input type="submit" value="Buscar">
+		</form>
+<br><br>
+	<h1>Buscar preguntas por Tematica</h1>
+		<form method="get" action="/quizes">
+			<select name="tematica">
+				<option value="otro" selected>Otro</option>
+				<option value="humanidades">Humanidades</option>
+				<option value="ocio">Ocio</option>
+				<option value="ciencia">Ciencia</option>
+				<option value="tecnologia">Tecnología</option>
+			</select>
+			<input type="submit" value="Buscar">
+		</form>
+<br><br>		
+<% if (busqueda) { %>
+	<h1>Resultado de la búsqueda</h1>
+	<p> Se han encontrado <b><%= quizes.length %></b> resultados </p>
+	<table>
+		<% var i; for (i=0; i<quizes.length; i++) { %>
+			<tr>
+				<td><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta%></a></td>
+				<td><a href="quizes/<%= quizes[i].id %>/edit"> <button>Editar</button></a></td>
+				<td><form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+				<button type="submit" onClick="return confirm('borrar: <%=quizes[i].pregunta %>');">Borrar</button>
+				</form></td>
+			</tr>
+		<% } %>
+	</table>
+<% } %>	
+<br><br>
+<a href="/quizes"> <button type="button">Volver</button></a><a href="/quizes/new"> <button type="button"> Crear pregunta </button> </a>
