@@ -27,7 +27,8 @@ app.use(cookieParser("Quiz 2015"));
 app.use(session({
 	  secret: 'quiz Secrets xD',
 	  resave: true,
-	  saveUninitialized:true
+	  saveUninitialized:true,
+	  cookie: { maxAge: 120000 }
 	}));
 
 

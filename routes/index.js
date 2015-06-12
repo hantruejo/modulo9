@@ -7,6 +7,7 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
+var stadisticController = require('../controllers/stadistic_controller');
 
 //Autoload de comandos con ids
 router.param('quizId', 		quizController.load);  // autoload :quizId
@@ -49,13 +50,16 @@ router.post('/quizes/:quizId(\\d+)/comments',		commentController.create);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',	sessionController.loginRequired,	commentController.publish);
 
 
-
+/*
+ * Stadistics routes
+ */
+router.get('/stats',		stadisticController.viewAll);
 
 /*
  * Author pages
  */
 router.get('/author', function(req, res) {
-	  res.render('author', { title: 'Quiz', errors: [],layout:true});
+	  res.render('author',{ errors: []});
 	});
 
 module.exports=router;
